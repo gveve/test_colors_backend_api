@@ -3,7 +3,7 @@ class ApplicationController < ActionController::API
 
   def issue_token(payload)
     byebug
-    JWT.encode(payload, ENV['token_secret'], 'HS256')
+    JWT.encode(payload, 'secret', 'HS256')
   end
 
   def current_user
@@ -16,7 +16,7 @@ class ApplicationController < ActionController::API
 
   def decoded_token
     begin
-       JWT.decode(request.headers['Authorization'], ENV['token_secret'])
+       JWT.decode(request.headers['Authorization'], 'secret')
      rescue JWT::DecodeError
       [{}]
      end

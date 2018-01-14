@@ -21,7 +21,7 @@ class Api::V1::AuthenticationController < ApplicationController
     if @user && @user.authenticate(params[:password])
       payload = {user_id: @user.id}
       token = issue_token(payload)
-      render json: { user: @user, token: token}
+      render json: { username: @user, token: token}
     else
       render json: { error: "your credentials are wrong"}
     end
