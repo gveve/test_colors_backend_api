@@ -1,9 +1,10 @@
 class Api::V1::CanvasesController < ApplicationController
+  skip_before_action :authorized
 
   def index
-    @canvases = Canvas.all
+    @canvas = Canvas.all
 
-    render json: @canvases
+    render json: @canvas
   end
 
   # GET /canvases/1
@@ -16,14 +17,20 @@ class Api::V1::CanvasesController < ApplicationController
     @canvas = Canvas.new
   end
 
+  # POST /canvases
+  # POST /canvases.json
+  def create
+    # byebug
+    @canvas = Canvas.create(canvas_params)
+  end
+
   # GET /canvases/1/edit
   def edit
   end
 
-  # POST /canvases
-  # POST /canvases.json
-  def create
-    @canvas = Canvas.create(params)
+  private
+  def canvas_params
+    params.require(:canvases).permit(:name, :img)
   end
 
 end

@@ -5,6 +5,8 @@ Rails.application.routes.draw do
     resources :canvases
     resources :colors
     resources :users
+    resources :images
+    post '/images', to: 'images#create'
     post '/users', to: 'users#create'
     post '/auth', to: 'authentication#create'
     get '/auth', to: 'authentication#show'

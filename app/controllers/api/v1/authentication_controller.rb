@@ -1,10 +1,9 @@
 class Api::V1::AuthenticationController < ApplicationController
-  # skip_before_action :authorized
+  skip_before_action :authorized
 
   def show
     render json: {
-      id: current_user.id,
-      username: current_user.username
+      user: current_user
     }
   end
 
@@ -17,13 +16,14 @@ class Api::V1::AuthenticationController < ApplicationController
   end
 
   def create
+    # byebug
     @user = User.find_by(username: params[:username])
     if @user && @user.authenticate(params[:password])
       payload = {user_id: @user.id}
       token = issue_token(payload)
-      render json: { username: @user, token: token}
+      render json: { user: @user, token: token}
     else
-      render json: { error: "your credentials are wrong"}
+      render json: { error: "incorrect username or password"}
     end
   end
 
