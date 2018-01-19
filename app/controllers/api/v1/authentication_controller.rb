@@ -1,5 +1,5 @@
 class Api::V1::AuthenticationController < ApplicationController
-  skip_before_action :authorized
+  skip_before_action :authorized, only: [:create]
 
   def show
     render json: {
