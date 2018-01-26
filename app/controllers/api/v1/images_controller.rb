@@ -3,8 +3,8 @@ skip_before_action :authorized
 
   def index
     @images = Image.all
-
-    render json: @images
+    
+    render json: @images, include: :user
   end
 
   # GET /canvases/1
