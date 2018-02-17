@@ -16,7 +16,7 @@ class Api::V1::AuthenticationController < ApplicationController
   end
 
   def create
-    # byebug
+    byebug
     @user = User.find_by(username: params[:username])
     if @user && @user.authenticate(params[:password])
       payload = {user_id: @user.id}
