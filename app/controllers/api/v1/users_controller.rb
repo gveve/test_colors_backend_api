@@ -7,6 +7,7 @@ class Api::V1::UsersController < ApplicationController
 
   def create
   user = User.create(user_params)
+  # byebug
     if user.valid?
       payload = {user_id: user.id}
       token = issue_token(payload)
@@ -18,6 +19,6 @@ class Api::V1::UsersController < ApplicationController
 
   private
   def user_params
-    params.require(:user).permit(:username, :password)
+    params.require(:user).permit(:username, :password, :email)
   end
 end

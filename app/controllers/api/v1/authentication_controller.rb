@@ -1,5 +1,5 @@
 class Api::V1::AuthenticationController < ApplicationController
-  skip_before_action :authorized, only: [:create]
+  skip_before_action :authorized
 
   def show
     render json: {
@@ -22,7 +22,7 @@ class Api::V1::AuthenticationController < ApplicationController
       token = issue_token(payload)
       render json: { user: @user, token: token}
     else
-      render json: { error: "incorrect username or password"}
+      render json: { errors: "incorrect username or password"}
     end
   end
 
