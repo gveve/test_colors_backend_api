@@ -2,7 +2,6 @@ class ApplicationController < ActionController::API
     before_action :authorized
 
   def issue_token(payload)
-    byebug
     JWT.encode(payload, ENV['secret'], 'HS256')
   end
 
@@ -15,7 +14,6 @@ class ApplicationController < ActionController::API
   end
 
   def decoded_token
-    # byebug
     begin
        JWT.decode(request.headers['Authorization'], ENV['secret'])
      rescue JWT::DecodeError
